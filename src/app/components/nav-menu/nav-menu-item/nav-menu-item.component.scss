@@ -1,0 +1,28 @@
+.button {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &__link {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        transition: background-color 0.2s, color 0.2s;
+        background-color: blue;
+        font-size: 18px;
+
+        &:hover:not(&--selected) {
+            background-color: rgb(79, 79, 255);
+            color: #fff;
+        }
+
+        &--selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+    }
+
+}

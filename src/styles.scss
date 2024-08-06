@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import './app/styles/input-forms';
+
+.center_content{
+    display: flex;
+    flex-direction: column;
+    align-items:  center;
+    justify-content: center;
+}
+
+.divider_line {
+    border-bottom: solid;
+    border-width: 1px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.btn:active { 
+    transform: translateY(2px); 
+    /* Moving button 4px to y-axis */ 
+}
+
+button{
+    background-color: blue;
+    color: white;
+    font-size: 18px;
+    font-style: bold;
+    border-color: rgb(0, 255, 55);
+    box-shadow: none;
+    border-style: solid;
+    border-radius: 5px;
+    width: 75px;
+    height: 75px;
+    margin: 5px;
+    &:hover {
+        background-color: rgb(98, 95, 253);
+    }
+    &:active{
+        background-color: rgb(0, 255, 55);
+    }
+}

@@ -1,0 +1,27 @@
+.form-container{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    padding: 10px;
+    padding-bottom: 20px;
+    margin: 5px;
+
+    &__item input,label{
+        display: flex;
+        margin: 10px;
+        font-size: 18px;        
+    }
+
+    input{
+        border-width: 1px;
+        border-radius: 5px;
+        height: 30px;
+    }
+
+    input:focus { 
+        outline: none;
+        border-color: #313275;
+        border-width: 2px;
+     }
+
+}

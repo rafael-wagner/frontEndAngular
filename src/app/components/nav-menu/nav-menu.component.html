@@ -1,0 +1,14 @@
+<div class="page_header">
+    <p>
+        HEADER AQUI
+    </p>
+</div>
+<div class="page_container">
+    <div class="menu">
+        <app-nav-menu-item [routerLink]="'/home'" [itemText]="'Home'" [routerLinkActiveOptions]='true' ></app-nav-menu-item>
+        <app-nav-menu-item [routerLink]="'/home/register'" [itemText]="'Cadastro'"></app-nav-menu-item>
+        <app-nav-menu-item [routerLink]="'/home/2'" [itemText]="'Home'"></app-nav-menu-item>
+    </div>
+    <router-outlet ></router-outlet>
+</div>
+

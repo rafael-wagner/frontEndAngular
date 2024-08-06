@@ -1,0 +1,22 @@
+.menu{
+    height: 100%;
+    max-width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.page_header {
+    width: 100%;
+    height: 20%;
+    background-color:blue ;
+    border: solid;
+    border-color: rgb(0, 8, 116);
+    border-width: 5px;
+    border-bottom-width: 15px;
+    text-align: center;
+}
+
+.page_container {
+    display: flex;
+
+}

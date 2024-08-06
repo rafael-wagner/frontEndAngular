@@ -1,0 +1,17 @@
+<div class="form-container">
+    <form [formGroup]="userForm" (ngSubmit)="userFormOnSubmitEvent()">
+        <div class="form-container__item divider_line">
+            <label for="user-name">Nome de Usuario:</label>
+            <input type="text" id="user-name" formControlName="username">
+        </div>
+        <div class="form-container__item divider_line">
+            <label for="user-password">Senha:</label>
+            <input [type]="passwordVisibility" id="user-password" formControlName="password">
+        </div>
+        <div class="form-container__item divider_line">
+            <label for="user-password-repeat">Repetir Senha:</label>
+            <input [type]="password2Visibility" id="user-password-repeat" formControlName="password2">
+        </div>
+        <button type="submit">OK</button>
+    </form>
+</div>
