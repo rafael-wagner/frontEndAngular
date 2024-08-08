@@ -1,14 +1,64 @@
-import { Component } from '@angular/core';
-import { UserFormComponent } from "../user-form/user-form.component";
-import { PersonFormComponent } from "../person-form/person-form.component";
+import { Component, inject } from '@angular/core';
+import { RequestService } from '../../services/request.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { IUser } from '../../interfaces/IUser.interface';
 
 @Component({
   selector: 'app-new-user-form',
   standalone: true,
-  imports: [UserFormComponent, PersonFormComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './new-user-form.component.html',
   styleUrl: './new-user-form.component.scss'
 })
 export class NewUserFormComponent {
+  private readonly _requestService = inject(RequestService)
+
+  userForm: FormGroup = new FormGroup({
+      username: new FormControl(''),
+      password: new FormControl(''),
+      password2: new FormControl(''),
+    });
+
+  userFormOnSubmitEvent() {
+    this.verifyIsPasswordValid()
+
+    const user : IUser = {
+      name:this.userForm.value.username
+      ,password: this.userForm.value.password
+    }
+
+    let resp : any = ''
+
+    this._requestService.postNewUser(user)
+    .subscribe(
+      response => 
+      {
+        resp = response;
+      }        
+    )
+
+    console.log(resp)
+  }
+
+  verifyIsPasswordValid(){
+    // TODO implementar avisos e validação
+
+      const isNameValid : boolean = this.userForm.value.username !== '' && this.userForm.value.username !== null
+      const isPasswordValid: boolean = this.userForm.value.password !== this.userForm.value.password2 && this.userForm.value.password !== ''
+
+      const validName : boolean = this.userForm.value.username
+      console.log(validName)
+
+      if(!isNameValid && !isPasswordValid){
+        throw new Error('Não implementado: nome ou senha invalidos');
+      }
+  }
+
+  passwordVisibility: "password" | "text" = "password";
+  password2Visibility: "password" | "text" = "password";
+  togglePasswordVisibility(){
+    this.passwordVisibility = this.passwordVisibility === "password"? "text" : "password";
+    this.passwordVisibility = this.password2Visibility === "password"? "text" : "password";
+  }
 
 }

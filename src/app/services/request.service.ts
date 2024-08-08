@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IToken } from '../interfaces/IToken.interface';
@@ -9,8 +9,10 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class RequestService {
+
 private readonly apiUrl = "http://localhost:8080"
 private readonly _http = inject(HttpClient)
+private readonly _authService = new AuthService()
 
 
   getFirst():Observable<string> {
@@ -18,27 +20,30 @@ private readonly _http = inject(HttpClient)
   }
 
   postLogin(user : IUser):Observable<IToken>{
-
-  const response = this._http.post<IToken>(this.apiUrl+'/login',user,)
-  return response
+   return this._http.post<IToken>(this.apiUrl+'/login',user,)
   }
 
-  postNewUser(user : IUser):Observable<IToken>{
-    return this._http.post<IToken>(this.apiUrl+'/newUser',user,)
+  postNewUser(user : IUser):Observable<any>{
+    return this._http.post<any>(this.apiUrl+'/users',user)
+  }
+
+  putUpdateUser(user: IUser):Observable<any> {
+
+    const authHeader = { 'Authorization': 'Bearer ' + this._authService.getAuthToken }
+    return this._http.put<any>(this.apiUrl+'/update-user',user,{headers: authHeader})
   }
 
   getListUsers(name : string | null):Observable<IUser[]>{
 
-  name = name? "" : name
-  const searchItems = {
-    userName: name
-    ,name: name
-  }
+    name = name? "" : name
+    const searchItems = {
+      userName: name
+      ,name: name
+    }
 
-  const authService = new AuthService()
-  const authHeader = { 'Authorization': 'Bearer ' + authService.getAuthToken }
-  
-  return this._http.post<IUser[]>(this.apiUrl+'/users',searchItems,{headers: authHeader})
+    const authHeader = { 'Authorization': 'Bearer ' + this._authService.getAuthToken }
+    
+    return this._http.post<IUser[]>(this.apiUrl+'/users',searchItems,{headers: authHeader})
 
   }
 

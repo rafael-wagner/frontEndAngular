@@ -23,22 +23,24 @@ a{
     /* Moving button 4px to y-axis */ 
 }
 
-button{
-    background-color: blue;
-    color: white;
-    font-size: 18px;
-    font-style: bold;
-    border-color: rgb(0, 255, 55);
-    box-shadow: none;
-    border-style: solid;
-    border-radius: 5px;
-    width: 75px;
-    height: 75px;
-    margin: 5px;
-    &:hover {
-        background-color: rgb(98, 95, 253);
-    }
-    &:active{
-        background-color: rgb(0, 255, 55);
-    }
+.form_button {
+        cursor: pointer;
+        background-color: blue;
+        color: white;
+        font-size: 18px;
+        font-style: bold;
+        border-color: rgb(0, 255, 55);
+        box-shadow: none;
+        border-style: solid;
+        border-radius: 5px;
+        margin: 5px;
+        padding: 10px;
+        
+        &:hover {
+            background-color: rgb(98, 95, 253);
+        }
+        &:active{
+            background-color: rgb(0, 255, 55);
+        }
+
 }

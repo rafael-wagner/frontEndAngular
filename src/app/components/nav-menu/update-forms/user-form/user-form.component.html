@@ -7,11 +7,15 @@
         <div class="form-container__item divider_line">
             <label for="user-password">Senha:</label>
             <input [type]="passwordVisibility" id="user-password" formControlName="password">
+            <button type="button" class="login_card__visibility_button btn" (click)="togglePasswordVisibility()">
+                <img src="../../../assets/icons/visibility_16dp_E8EAED_FILL0_wght400_GRAD0_opsz20.svg" alt="">
+            </button>
         </div>
         <div class="form-container__item divider_line">
             <label for="user-password-repeat">Repetir Senha:</label>
             <input [type]="password2Visibility" id="user-password-repeat" formControlName="password2">
         </div>
-        <button type="submit">OK</button>
+
+        <button type="submit" class="form_button">Concluir</button>
     </form>
 </div>

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IUser } from '../../interfaces/IUser.interface';
+import { IUser } from '../../../../interfaces/IUser.interface';
+import { RequestService } from '../../../../services/request.service';
 
 @Component({
   selector: 'app-user-form',
@@ -10,25 +11,23 @@ import { IUser } from '../../interfaces/IUser.interface';
   styleUrl: './user-form.component.scss'
 })
 export class UserFormComponent {
+  private readonly _requestService = inject(RequestService)
 
-@Output() userFormSubmitEvent = new EventEmitter<IUser>();
-
-userForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    password2: new FormControl(''),
-  });
+  userForm: FormGroup = new FormGroup({
+      username: new FormControl(''),
+      password: new FormControl(''),
+      password2: new FormControl(''),
+    });
 
   userFormOnSubmitEvent() {
     this.verifyIsPasswordValid()
 
-    const newUser : IUser = {
-      username:this.userForm.value.username
+    const user : IUser = {
+      name:this.userForm.value.username
       ,password: this.userForm.value.password
     }
 
-    this.userFormSubmitEvent.emit(newUser);
-    console.log('submitted')
+    this._requestService.putUpdateUser(user)
 
   }
 

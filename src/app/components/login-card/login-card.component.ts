@@ -30,7 +30,7 @@ export class LoginCardComponent {
 
   eventLogin() {    
     const user : IUser = {
-      username : this.loginForm.value.username
+      name : this.loginForm.value.username
       ,password: this.loginForm.value.password
     }
 
