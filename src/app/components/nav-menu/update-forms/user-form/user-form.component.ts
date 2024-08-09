@@ -17,6 +17,7 @@ export class UserFormComponent {
       username: new FormControl(''),
       password: new FormControl(''),
       password2: new FormControl(''),
+      email: new FormControl(''),
     });
 
   userFormOnSubmitEvent() {
@@ -25,6 +26,7 @@ export class UserFormComponent {
     const user : IUser = {
       name:this.userForm.value.username
       ,password: this.userForm.value.password
+      ,email: this.userForm.value.email
     }
 
     this._requestService.putUpdateUser(user)

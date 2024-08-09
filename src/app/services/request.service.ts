@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IToken } from '../interfaces/IToken.interface';
 import { IUser } from '../interfaces/IUser.interface';
 import { AuthService } from './auth.service';
+import { IUserLogin } from '../interfaces/IUserLogin.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ private readonly _authService = new AuthService()
     return this._http.get<string>(this.apiUrl+'/first');
   }
 
-  postLogin(user : IUser):Observable<IToken>{
+  postLogin(user : IUserLogin):Observable<IToken>{
    return this._http.post<IToken>(this.apiUrl+'/login',user,)
   }
 

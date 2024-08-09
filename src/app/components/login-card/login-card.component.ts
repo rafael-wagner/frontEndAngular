@@ -1,10 +1,10 @@
 
 import { Component, inject } from '@angular/core';
 import { RequestService } from '../../services/request.service';
-import { IUser } from '../../interfaces/IUser.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { IUserLogin } from '../../interfaces/IUserLogin.interface';
 
 @Component({
   selector: 'app-login-card',
@@ -29,7 +29,7 @@ export class LoginCardComponent {
 
 
   eventLogin() {    
-    const user : IUser = {
+    const user : IUserLogin = {
       name : this.loginForm.value.username
       ,password: this.loginForm.value.password
     }

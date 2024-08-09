@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IUser } from '../../interfaces/IUser.interface';
+import { IPerson } from '../../interfaces/IPerson.interface';
 
 @Component({
   selector: 'app-new-user-form',
@@ -17,14 +18,31 @@ export class NewUserFormComponent {
       username: new FormControl(''),
       password: new FormControl(''),
       password2: new FormControl(''),
+      email: new FormControl(''),
+
+      personName: new FormControl(''),
+      cpf: new FormControl(''),
+      phone: new FormControl(''),
+
+
     });
 
   userFormOnSubmitEvent() {
     this.verifyIsPasswordValid()
 
+    const person : IPerson = {
+      cpf: this.userForm.value.cpf
+      ,name: this.userForm.value.personName
+      ,phone: this.userForm.value.phone
+
+    }
+
     const user : IUser = {
       name:this.userForm.value.username
       ,password: this.userForm.value.password
+      ,email:this.userForm.value.email
+
+      ,person:person
     }
 
     let resp : any = ''
@@ -33,7 +51,7 @@ export class NewUserFormComponent {
     .subscribe(
       response => 
       {
-        resp = response;
+        resp = response
       }        
     )
 
