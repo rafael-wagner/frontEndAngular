@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IToken } from '../interfaces/IToken.interface';
@@ -12,13 +12,11 @@ import { IUserLogin } from '../interfaces/IUserLogin.interface';
 export class RequestService {
 
 private readonly apiUrl = "http://localhost:8080"
+private readonly _loginUrl = this.apiUrl.concat("/login")
+private readonly _usersUrl = this.apiUrl.concat("/api/users")
 private readonly _http = inject(HttpClient)
 private readonly _authService = new AuthService()
 
-
-  getFirst():Observable<string> {
-    return this._http.get<string>(this.apiUrl+'/first');
-  }
 
   postLogin(user : IUserLogin):Observable<IToken>{
    return this._http.post<IToken>(this.apiUrl+'/login',user,)
@@ -30,23 +28,24 @@ private readonly _authService = new AuthService()
 
   putUpdateUser(user: IUser):Observable<any> {
 
-    const authHeader = { 'Authorization': 'Bearer ' + this._authService.getAuthToken }
-    return this._http.put<any>(this.apiUrl+'/update-user',user,{headers: authHeader})
+    const authHeader = { 'Authorization': 'Bearer ' + this._authService.getAuthToken() }
+    return this._http.post<any>(this._usersUrl,user,{headers: authHeader})
   }
 
-  getListUsers(name : string | null):Observable<IUser[]>{
+  deleteUser(user: IUser) {
+    throw new Error('Method not implemented.');
+  }
 
-    name = name? "" : name
-    const searchItems = {
-      userName: name
-      ,name: name
-    }
-
-    const authHeader = { 'Authorization': 'Bearer ' + this._authService.getAuthToken }
+  getListUsers(name: string, email: string):Observable<IUser[]>{
     
-    return this._http.post<IUser[]>(this.apiUrl+'/users',searchItems,{headers: authHeader})
+    let optionHeaders = new HttpHeaders();
+    optionHeaders = optionHeaders.set("Authorization", `Bearer ${this._authService.getAuthToken()}`);
+    optionHeaders = optionHeaders.set("Content-Type", "application/json")
+
+    let searchUrl = this._usersUrl.concat(`?name=${name}&email=${email}`)
+    
+    return this._http.get<IUser[]>(searchUrl,{headers: optionHeaders})
 
   }
-
 
 }

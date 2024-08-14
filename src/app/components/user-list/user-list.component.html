@@ -1,0 +1,52 @@
+<div class="">
+    <div class="form-container" >
+        <form [formGroup]="userSearchForm" class="items_inline" (ngSubmit)="searchFormOnSubmitEvent()">
+            <div class="form-container__item items_inline">
+                <label for="user-name">Usuario:</label>
+                <input class="login_card__input_line" id="user-name" formControlName="username" type="text" 
+                placeholder="Nome de Usuário" >
+            </div>
+            <div class="form-container__item items_inline">
+                <label for="user-email">Email:</label>
+                <input class="login_card__input_line" id="user-email" formControlName="email" type="text" 
+                placeholder="Email de Usuário" >
+            </div>
+            <button class="form_button" type="submit">
+                Buscar
+            </button>
+        </form>
+    </div>
+    <div class="user_list_container">
+        <ul class="user_list">
+            @for (user of users; track $index) {
+                <li class="user_list__item divider_line" (click)="selectUser(user)">
+                    <span>
+                        {{user.name}}
+                    </span>
+                    <span>
+                        {{user.email}}
+                    </span>
+                    <span>
+                        {{user.person?.name}}
+                    </span>
+                </li>
+            }
+        </ul>
+        <div class="user_info">
+            <h1>Info</h1>
+            <div>
+                <h2>Nome: </h2>
+                <h3>{{selectedUser?.name}}</h3>
+            </div>
+            <div>
+                <h2>Email: </h2>
+                <h3>{{selectedUser?.email}}</h3>
+            </div>
+            <button (click)="deleteUser(selectUser)">DELETAR</button>
+        </div>
+    </div>
+</div>
+
+
+
+

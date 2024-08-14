@@ -9,7 +9,7 @@ export class AuthService {
   constructor() { }
 
   getAuthToken(): String | null {
-    return window.localStorage.getItem("token")
+    return window.localStorage.getItem("auth-token")
   }
 
   setAuthToken(token: string | null) {

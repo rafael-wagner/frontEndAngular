@@ -6,6 +6,7 @@ import { PersonFormComponent } from './components/nav-menu/update-forms/person-f
 import { AddressFormComponent } from './components/nav-menu/update-forms/address-form/address-form.component';
 import { NavRegistrationComponent } from './components/nav-menu/nav-registration/nav-registration.component';
 import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 export const routes: Routes = [
 
@@ -40,6 +41,11 @@ export const routes: Routes = [
                         ,component:PersonFormComponent                
                     }
                 ]
+            }
+            ,{
+                path:"list"
+                ,component:UserListComponent
+                ,pathMatch: 'full'
             }
         ]
     }
