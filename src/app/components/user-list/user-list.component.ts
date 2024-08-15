@@ -43,8 +43,12 @@ export class UserListComponent {
     this.selectedUser = $user;
   }
 
-  deleteUser(arg0: ($user: IUser) => void) {
-    // TODO this._usersService.deleteUser();
+  deleteUser(user : IUser | null){
+    if(user !== null){
+      this._usersService.deleteUser(user).subscribe();
+      this.selectedUser = null;
+      this.users = this.users.filter(u => u.name !== user.name)
+    }
   }
 
   searchFormOnSubmitEvent() {
@@ -53,7 +57,5 @@ export class UserListComponent {
     .pipe(take(1))
     .subscribe(userList => this.users = userList)
   }
-
-
 
 }
