@@ -14,7 +14,8 @@ export class UserFormComponent implements OnInit{
 
   private readonly _usersService = inject(RequestService)
   private readonly _fb = inject(FormBuilder)
-
+  private _currentUser : IUser | null = null;
+  userForm: FormGroup = new FormGroup({})
 
   ngOnInit(): void {
 
@@ -22,30 +23,24 @@ export class UserFormComponent implements OnInit{
     this.userForm = this._fb.group({
       userName: ['',Validators.required],
       email: ['',Validators.required],
-      password: ['',Validators.required],
-      password2: ['',Validators.required],
+      password: [''],
+      password2: [''],
     })
 
-    this._usersService.getCurrentUserInfo().subscribe( user => this.userForm.patchValue({
-          userName: [user.name],
-          email: [user.email]
-    }))
-
+    this._usersService.getCurrentUserInfo().subscribe( user =>
+      {
+          this._currentUser = user
+          this.userForm.patchValue({
+              userName: [user.name],
+              email: [user.email]
+          })
+      }
+    )
     
   }
 
 
-  userForm: FormGroup = new FormGroup({})
-  // = new FormGroup({
-  //   userName: new FormControl('',Validators.required),
-  //   email: new FormControl('',Validators.required),
-  //   password: new FormControl('',Validators.required),
-  //   password2: new FormControl('',Validators.required),
-  // });
-
   private readonly _requestService = inject(RequestService)
-
-
 
   userFormOnSubmitEvent() {
     this.verifyIsPasswordValid()
