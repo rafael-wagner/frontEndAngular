@@ -1,15 +1,19 @@
 <div class="">
-    <div class="form-container" >
+    <div class="form-container">
         <form [formGroup]="userSearchForm" class="items_inline" (ngSubmit)="searchFormOnSubmitEvent()">
-            <div class="form-container__item items_inline">
-                <label for="user-name">Usuario:</label>
-                <input class="login_card__input_line" id="user-name" formControlName="username" type="text" 
-                placeholder="Nome de Usuário" >
+            <div class="form-container__item">
+                <span class="search_margin">
+                    <label for="user-name">Usuario:</label>
+                    <input class="login_card__input_line" id="user-name" formControlName="username" type="text" 
+                    placeholder="Nome de Usuário" >
+                </span>
             </div>
-            <div class="form-container__item items_inline">
-                <label for="user-email">Email:</label>
-                <input class="login_card__input_line" id="user-email" formControlName="email" type="text" 
-                placeholder="Email de Usuário" >
+            <div class="form-container__item">
+                <span class="search_margin">
+                    <label for="user-email">Email:</label>
+                    <input class="login_card__input_line" id="user-email" formControlName="email" type="text" 
+                    placeholder="Email de Usuário" >
+                </span>
             </div>
             <button class="form_button" type="submit">
                 Buscar
@@ -17,21 +21,36 @@
         </form>
     </div>
     <div class="user_list_container">
-        <ul class="user_list">
-            @for (user of users; track $index) {
-                <li class="user_list__item divider_line" (click)="selectUser(user)">
-                    <span>
+
+        <table class="users_table" cellspacing="0" cellpadding="0">
+            <tr class="border_bot">
+                <th>Usuário</th>
+                <th class="border_sides">Email</th>
+                <th>Nome</th>
+            </tr>
+
+            @for (user of users; track user.name; let isFirst = $first; let isLast = $last) {
+                <tr class="users_table__line"
+                [ngClass]="{
+                    'bot_round': isLast 
+                    , 'border_bot' : !isLast 
+                    , 'users_table__line--selected': user === selectedUser
+                }"
+                (click)="selectUser(user)">
+                    <td>
                         {{user.name}}
-                    </span>
-                    <span>
+                    </td>
+                    <td class="border_sides">
                         {{user.email}}
-                    </span>
-                    <span>
+                    </td>
+                    <td>
                         {{user.person?.name}}
-                    </span>
-                </li>
+                    </td>
+                </tr>
             }
-        </ul>
+
+        </table>
+
         <div class="user_info">
             <h1>Info</h1>
             <div>

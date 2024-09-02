@@ -23,8 +23,8 @@ export class LoginCardComponent {
   private readonly _requestService = inject(RequestService)
 
   loginForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('',Validators.required),
+    password: new FormControl('',Validators.required),
   });
 
 

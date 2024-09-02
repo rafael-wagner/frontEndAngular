@@ -1,33 +1,77 @@
 <div class="form-container">
-    <form >
+    <form [formGroup]="addressForm" (ngSubmit)="addressFormOnSubmitEvent()">
         <div class="form-container__item divider_line">
-            <label for="postal-code">CEP:</label>
-            <input type="text" id="postal-code">
+            <span>
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" formControlName="cep">
+            </span>
+            <ul class="form_warnings">
+                @if(addressForm.controls['cep'].hasError('required')
+                && addressForm.controls['cep'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul>
         </div>
         <div class="form-container__item divider_line">
-            <label for="lane">Rua:</label>
-            <input type="text" id="lane">
+            <span>
+                <label for="lane">Rua:</label>
+                <input type="text" id="lane" formControlName="lane">
+            </span>
+            <ul class="form_warnings">
+                @if(addressForm.controls['lane'].hasError('required')
+                && addressForm.controls['lane'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul>
         </div>
         <div class="form-container__item divider_line">
-            <label for="number">Número:</label>
-            <input type="text" id="number">
+            <span>
+                <label for="number">Número:</label>
+                <input type="text" id="number" formControlName="number">
+            </span>
+            <ul class="form_warnings">
+                @if(addressForm.controls['number'].hasError('required')
+                && addressForm.controls['number'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul>
         </div>
         <div class="form-container__item divider_line">
-            <label for="city">Cidade:</label>
-            <input type="text" id="city">
+            <span>
+                <label for="city">Cidade:</label>
+                <input type="text" id="city" formControlName="city">
+            </span>
+            <ul class="form_warnings">
+                @if(addressForm.controls['city'].hasError('required')
+                && addressForm.controls['city'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul>
         </div>
         <div class="form-container__item divider_line">
-            <label for="state">Estado:</label>
-            <input type="text" id="city">
+            <span>
+                <label for="state">Estado:</label>
+                <input type="text" id="state" formControlName="state">
+            </span>
+            <ul class="form_warnings">
+                @if(addressForm.controls['state'].hasError('required')
+                && addressForm.controls['state'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul>
         </div>
         <div class="form-container__item divider_line">
-            <label for="country">Pais:</label>
-            <input type="text" id="country">
+            <span>
+                <label for="landmark">Ponto de Referencia:</label>
+                <input type="text" id="landmark" formControlName="landmark">
+            </span>
+            <ul class="form_warnings">
+                @if(addressForm.controls['landmark'].hasError('required')
+                && addressForm.controls['landmark'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul>
         </div>
-        <div class="form-container__item divider_line">
-            <label for="landmark">Ponto de Referencia:</label>
-            <input type="text" id="landmark">
-        </div>
-        <button type="submit">Concluir</button>
+        <button type="submit" class="form_button">Alterar</button>
     </form>
 </div>

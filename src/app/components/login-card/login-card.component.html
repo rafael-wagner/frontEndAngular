@@ -1,22 +1,26 @@
 <div class="form-container center_content">
         <h2>Login</h2>
         <form [formGroup]="loginForm" (ngSubmit)="eventLogin()">
-            <div class="form-container__item">
-                <label for="user-name">Usuario:</label>
-                <input class="login_card__input_line" id="user-name" formControlName="username" type="login" 
-                placeholder="Nome de Usuário" >
+            <div class="form-container__item grid" >
+                <span>
+                    <label for="user-name">Usuario:</label>
+                    <input class="login_card__input_line" id="user-name" formControlName="username" type="login" 
+                    placeholder="Nome de Usuário" >
+                </span>
             </div>
             <div class="form-container__item">
-                <label for="password">Senha:</label>
-                <span class="login_card__password_box">
+                <span>
+                    <label for="password">Senha:</label>
                     <input [type]="passwordVisibility" id="password"
                     placeholder="Senha" formControlName="password">
-                    <button type="button" class="login_card__visibility_button btn" (click)="togglePasswordVisibility()">
+                </span>
+                <span class="password_buttom">
+                    <button type="button" (click)="togglePasswordVisibility()">
                         <img src="../../../assets/icons/visibility_16dp_E8EAED_FILL0_wght400_GRAD0_opsz20.svg" alt="">
                     </button>
                 </span>
             </div>
-            <div class="login_buttons_container">
+            <div >
                 <button type="submit" class="form_button">Login</button>
                 <button type="button" class="form_button" routerLink="/new-user">Registrar</button>
             </div>

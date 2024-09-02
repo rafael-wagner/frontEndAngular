@@ -1,32 +1,75 @@
-.user_list{
-    border-color: cadetblue;
-    border-width: 2px;
-    border-style: solid;
+.users_table{
+    border-collapse: separate;
+    width: 100%;
+    border-radius:5px;
+    border: solid grey 1px;
     margin: 10px;
-    padding: 10px;
-    width: 50%;
-    &__item{
-        display: flex;
-        justify-content: space-evenly;
-        cursor: pointer;
+    th{
+        background-color: cadetblue;
+        color: white;
+        padding: 20px 5px;
+    }
+
+    td{
         font-size: 18px;
-        background-color: azure;
-        &:hover {
+        text-align: center;
+        padding: 20px 5px;
+    }
+    
+    &__line {
+        cursor: pointer;
+        td{
+            background-color: rgb(121, 255, 255);
+        }
+        &:hover td{
             background-color: aquamarine;
         }
-        &:active{
+        &:active td{
             background-color: rgb(0, 255, 55);
         }
 
+        td:first-child, th:first-child {
+            border-left: none;
+       }
+
+       &--selected{
+            td, &:hover td{
+                background-color: greenyellow;
+            }
+       }
+
     }
+    
+    .border_bot {
+        td,th{
+            border-bottom: solid;
+            border-bottom-width: 2px;
+            border-color: black;
+        }
+    }
+
+    .border_sides{
+            border-right: solid;
+            border-left: solid;
+            border-width: 2px;
+            border-color: black;
+            border-width: 1px;
+    }
+
+    .bot_round{
+        border-radius: 10px;
+    }    
+
 }
 
 .user_info{
     width: 50%;
 }
 
-
-
 .user_list_container{
     display: flex;
+}
+
+.search_margin{
+    margin: 5px;
 }

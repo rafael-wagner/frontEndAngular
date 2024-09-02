@@ -17,6 +17,12 @@ private readonly _usersUrl = this.apiUrl.concat("/api/users")
 private readonly _http = inject(HttpClient)
 private readonly _authService = new AuthService()
 
+  private getAuthHeaders(): HttpHeaders{
+    let optionHeaders = new HttpHeaders();
+    optionHeaders = optionHeaders.set("Authorization", `Bearer ${this._authService.getAuthToken()}`);
+    optionHeaders = optionHeaders.set("Content-Type", "application/json")
+    return optionHeaders;
+  }
 
   postLogin(user : IUserLogin):Observable<IToken>{
    return this._http.post<IToken>(this.apiUrl+'/login',user,)
@@ -27,27 +33,24 @@ private readonly _authService = new AuthService()
   }
 
   putUpdateUser(user: IUser):Observable<any> {
-
-    const authHeader = { 'Authorization': 'Bearer ' + this._authService.getAuthToken() }
-    return this._http.post<any>(this._usersUrl,user,{headers: authHeader})
+    return this._http.post<any>(this._usersUrl,user,{headers: this.getAuthHeaders()})
   }
 
   deleteUser(user: IUser):Observable<any> {
-    let optionHeaders = new HttpHeaders();
-    optionHeaders = optionHeaders.set("Authorization", `Bearer ${this._authService.getAuthToken()}`);
-    optionHeaders = optionHeaders.set("Content-Type", "application/json")
     let deleteUrl = this._usersUrl.concat(`?name=${user.name}`)
-    return this._http.delete<any>(deleteUrl,{headers: optionHeaders})
+    return this._http.delete<any>(deleteUrl,{headers: this.getAuthHeaders()})
   }
 
-  getListUsers(name: string,email: string):Observable<IUser[]>{
-    
-    let optionHeaders = new HttpHeaders();
-    optionHeaders = optionHeaders.set("Authorization", `Bearer ${this._authService.getAuthToken()}`);
-    optionHeaders = optionHeaders.set("Content-Type", "application/json")
-    let searchUrl = this._usersUrl.concat(`?name=${name}&email=${email}`)
-    return this._http.get<IUser[]>(searchUrl,{headers: optionHeaders})
+  getUsersList(name: string,email: string):Observable<IUser[]>{
 
+    let searchUrl = this._usersUrl.concat(`/search?name=${name}&email=${email}`)
+    return this._http.get<IUser[]>(searchUrl,{headers: this.getAuthHeaders()})
+
+  }
+
+  getCurrentUserInfo(): Observable<IUser>{
+    let userUrl = this._usersUrl.concat("/info")
+    return this._http.get<any>(userUrl,{headers: this.getAuthHeaders()})
   }
 
 }

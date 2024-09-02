@@ -1,16 +1,41 @@
 <div class="form-container">
-    <form >
+    <form [formGroup]="personForn" >
         <div class="form-container__item divider_line">
-            <label for="name">Nome:</label>
-            <input type="text" id="name">
+            <span>
+                <label for="name">Nome Completo:</label>
+                <input type="text" id="name" formControlName="personName">
+            </span>
+            <ul class="form_warnings">
+                @if(personForn.controls['personName'].hasError('required')
+                && personForn.controls['personName'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul>  
         </div>
         <div class="form-container__item divider_line">
-            <label for="phone">Telefone:</label>
-            <input type="text" id="phone">
+            <span>
+                <label for="cpf">CPF:</label>
+                <input id="cpf" formControlName="cpf" >
+            </span>
+            <ul class="form_warnings">
+                @if(personForn.controls['cpf'].hasError('required')
+                && personForn.controls['cpf'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul>  
         </div>
         <div class="form-container__item divider_line">
-            <label for="cpf-number">CPF:</label>
-            <input type="text" id="cpf-number">
-        </div>
+            <span>
+                <label for="phone">Telefone:</label>
+                <input type="text" id="phone" formControlName="phone">
+            </span>
+            <ul class="form_warnings">
+                @if(personForn.controls['phone'].hasError('required')
+                && personForn.controls['phone'].touched){
+                    <li>CAMPO OBRIGATÓRIO</li>
+                }
+            </ul> 
+        </div> 
+        <button type="submit" class="form_button">Alterar</button>
     </form>
 </div>

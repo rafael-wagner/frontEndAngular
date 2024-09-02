@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RequestService } from '../../services/request.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../interfaces/IUser.interface';
 import { IPerson } from '../../interfaces/IPerson.interface';
 
@@ -15,15 +15,14 @@ export class NewUserFormComponent {
   private readonly _requestService = inject(RequestService)
 
   userForm: FormGroup = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl(''),
-      password2: new FormControl(''),
-      email: new FormControl(''),
+      userName: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(100)]),
+      password: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(100)]),
+      password2: new FormControl('',Validators.required),
+      email: new FormControl('',Validators.required),
 
-      personName: new FormControl(''),
-      cpf: new FormControl(''),
-      phone: new FormControl(''),
-
+      personName: new FormControl('',Validators.required),
+      cpf: new FormControl('',Validators.required),
+      phone: new FormControl('',Validators.required),
 
     });
 
@@ -75,8 +74,10 @@ export class NewUserFormComponent {
   passwordVisibility: "password" | "text" = "password";
   password2Visibility: "password" | "text" = "password";
   togglePasswordVisibility(){
-    this.passwordVisibility = this.passwordVisibility === "password"? "text" : "password";
-    this.passwordVisibility = this.password2Visibility === "password"? "text" : "password";
+    this.passwordVisibility = (this.passwordVisibility === "password")? "text" : "password"; 
+  }
+  togglePassword2Visibility(){
+    this.password2Visibility = (this.password2Visibility === "password")? "text" : "password";
   }
 
 }

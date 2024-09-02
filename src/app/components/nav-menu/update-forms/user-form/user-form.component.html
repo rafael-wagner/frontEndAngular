@@ -1,29 +1,91 @@
 <div class="form-container">
     <form [formGroup]="userForm" (ngSubmit)="userFormOnSubmitEvent()">
         <div class="form-container__item divider_line">
-            <label for="user-name">Nome de Usuario:</label>
-            <input type="text" id="user-name" formControlName="username">
+            <span>
+                <label for="user-name">Nome de Usuario:</label>
+                <input type="text" id="user-name" formControlName="userName">
+            </span>
+            <ul class="form_warnings">
+                @if(userForm.controls['userName'].touched){
+                    @if(userForm.controls['userName'].hasError('required')){
+                        <li>CAMPO OBRIGATÓRIO</li>
+                    }
+                    @if(userForm.controls['userName'].hasError('minlength')){
+                        <li>NOME MUITO CURTO</li>
+                    }
+                    @if(userForm.controls['userName'].hasError('maxlength')){
+                        <li>NOME MUITO LONGO</li>
+                    }
+                }
+            </ul>
         </div>
         <div class="form-container__item divider_line">
             <span>
-                <label for="user-password">Senha:</label>
+                <label for="user-email">Email:</label>
+                <input type="text" id="user-email" formControlName="email">
             </span>
-            <span class="password_input">
+            <ul class="form_warnings">
+                @if(userForm.controls['userName'].touched){
+                    @if(userForm.controls['userName'].hasError('required')){
+                        <li>CAMPO OBRIGATÓRIO</li>
+                    }
+                    @if(userForm.controls['userName'].hasError('minlength')){
+                        <li>NOME MUITO CURTO</li>
+                    }
+                    @if(userForm.controls['userName'].hasError('maxlength')){
+                        <li>NOME MUITO LONGO</li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="form-container__item divider_line">
+            <span>
+                <label for="user-password">Nova Senha:</label>
                 <input [type]="passwordVisibility" id="user-password" formControlName="password">
-                <button type="button" class="login_card__visibility_button btn" (click)="togglePasswordVisibility()">
+            </span>
+            <span class="password_buttom">
+                <button type="button" (click)="togglePasswordVisibility()">
                     <img src="../../../assets/icons/visibility_16dp_E8EAED_FILL0_wght400_GRAD0_opsz20.svg" alt="">
                 </button>
             </span>
+            <ul class="form_warnings">
+                @if(userForm.controls['password'].touched){
+                    @if(userForm.controls['password'].hasError('required')){
+                        <li>CAMPO OBRIGATÓRIO</li>
+                    }
+                    @if(userForm.controls['password'].hasError('minlength')){
+                        <li>SENHA MUITO CURTA</li>
+                    }
+                    @if(userForm.controls['password'].hasError('maxlength')){
+                        <li>SENHA MUITO LONGA</li>
+                    }
+                }
+            </ul>        
         </div>
-        <div class="form-container__item divider_line">
-            <label for="user-password-repeat">Repetir Senha:</label>
-            <input [type]="password2Visibility" id="user-password-repeat" formControlName="password2">
+        <div class="form-container__item divider_line"> 
+            <span>
+                <label for="user-password-repeat">Repetir Senha:</label>
+                <input [type]="password2Visibility" id="user-password-repeat" formControlName="password2">
+            </span>
+            <span class="password_buttom">
+                <button type="button" (click)="togglePassword2Visibility()">
+                    <img src="../../../assets/icons/visibility_16dp_E8EAED_FILL0_wght400_GRAD0_opsz20.svg" alt="">
+                </button>
+            </span>        
+            <ul class="form_warnings">
+                @if(userForm.controls['password2'].touched){
+                    @if(userForm.controls['password2'].hasError('required')){
+                        <li>CAMPO OBRIGATÓRIO</li>
+                    }
+                    @if(userForm.controls['password2'].hasError('minlength')){
+                        <li>SENHA MUITO CURTA</li>
+                    }
+                    @if(userForm.controls['password2'].hasError('maxlength')){
+                        <li>SENHA MUITO LONGA</li>
+                    }
+                }
+            </ul>   
         </div>
-        <div class="form-container__item divider_line">
-            <label for="user-name">Nome de Usuario:</label>
-            <input type="text" id="user-name" formControlName="username">
-        </div>
-
-        <button type="submit" class="form_button">Concluir</button>
+        <button type="submit" class="form_button">Alterar</button>
     </form>
 </div>

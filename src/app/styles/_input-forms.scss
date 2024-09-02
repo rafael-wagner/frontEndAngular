@@ -5,23 +5,65 @@
     padding: 10px;
     padding-bottom: 20px;
     margin: 5px;
+    min-width: 80%;
 
-    &__item input,label{
+    &__item {
         display: flex;
-        margin: 10px;
-        font-size: 18px;        
+        width: 100%;
+        input{
+            border-width: 1px;
+            border-radius: 5px;
+            height: 30px;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+            &:focus { 
+                outline: none;
+                border-color: #313275;
+                border-width: 2px;
+             }
+    
+        }
+    
+        label{
+            display: flex;
+            margin: 5px;
+            font-size: 1.3em;
+        }      
+
     }
 
-    input{
-        border-width: 1px;
+
+}
+
+.form_warnings{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    border-left: gray solid 1px;
+    font-size: 1em;
+    font-weight: bold;
+    
+}
+
+.password_buttom{
+    display: flex;
+    align-items: end;
+    button{
+        cursor: pointer;
+        background-color: blue;
+        color: white;
+        font-size: 1.1em;
+        font-style: bold;
+        border:  rgb(0, 255, 55) solid 2px;
+        box-shadow: none;
+        margin: 5px;
+        padding: 5px;
         border-radius: 5px;
-        height: 30px;
+        &:hover {
+            background-color: rgb(98, 95, 253);
+        }
+        &:active{
+            background-color: rgb(0, 255, 55);
+        }
     }
-
-    input:focus { 
-        outline: none;
-        border-color: #313275;
-        border-width: 2px;
-     }
-
 }
