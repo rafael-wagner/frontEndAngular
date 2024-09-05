@@ -68,6 +68,8 @@ export class UserListComponent {
       cpf: [$user.person?.cpf],
       phone: [$user.person?.phone],
     })
+
+    this._submitUserToService = this._functionPut
   }
 
   deleteUser(user : IUser | null){
@@ -121,16 +123,20 @@ export class UserListComponent {
     }
 
     this._submitUserToService(user)
+    this._submitUserToService = this._functionPost
   }
 
-  private _submitUserToService = (user : IUser) => {
+  private readonly _functionPost =  (user : IUser) => {
     this._requestService.postNewUser(user)
     .subscribe()
   }
+  private readonly _functionPut =  (user : IUser) => {
+    this._requestService.postNewUser(user)
+    .subscribe()
+  }
+  private _submitUserToService = this._functionPost
 
   verifyIsPasswordValid(){
-    // TODO implementar avisos e validação
-
       const isNameValid : boolean = this.userForm.value.username !== '' && this.userForm.value.username !== null
       const isPasswordValid: boolean = this.userForm.value.password !== this.userForm.value.password2 && this.userForm.value.password !== ''
 
