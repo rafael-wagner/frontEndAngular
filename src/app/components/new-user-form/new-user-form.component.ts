@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../interfaces/IUser.interface';
@@ -12,6 +12,7 @@ import { IPerson } from '../../interfaces/IPerson.interface';
   styleUrl: './new-user-form.component.scss'
 })
 export class NewUserFormComponent {
+
   private readonly _requestService = inject(RequestService)
 
   userForm: FormGroup = new FormGroup({
@@ -44,17 +45,12 @@ export class NewUserFormComponent {
       ,person:person
     }
 
-    let resp : any = ''
+    this._submitUserToService(user)
+  }
 
+  private _submitUserToService = (user : IUser) => {
     this._requestService.postNewUser(user)
-    .subscribe(
-      response => 
-      {
-        resp = response
-      }        
-    )
-
-    console.log(resp)
+    .subscribe()
   }
 
   verifyIsPasswordValid(){

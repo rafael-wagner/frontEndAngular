@@ -14,7 +14,7 @@ export class AddressFormComponent implements OnInit{
   
   private readonly _fb = inject(FormBuilder)
   private readonly _usersService = inject(RequestService)
-  private currentUser : IUser | null = null;
+  private _currentUser : IUser | null = null;
 
   addressForm : FormGroup = this._fb.group({
     postalCode: ['',Validators.required],
@@ -28,7 +28,7 @@ export class AddressFormComponent implements OnInit{
   ngOnInit(): void {
     this._usersService.getCurrentUserInfo().subscribe( user => 
       {
-        this.currentUser = user;
+        this._currentUser = user;
         if(user.person !== null && user.person?.address !== null){
           this.addressForm.patchValue({
             postalCode: [user.person?.address?.postalCode],
@@ -43,7 +43,17 @@ export class AddressFormComponent implements OnInit{
   }
 
   addressFormOnSubmitEvent() {
-    throw new Error('Method not implemented.');
+    if(this._currentUser !== null && this._currentUser.person !== null){
+      this._currentUser!.person!.address = {
+        postalCode: this.addressForm.value.postalCode,
+        lane: this.addressForm.value.lane,
+        number: this.addressForm.value.number,
+        city: this.addressForm.value.city,
+        state: this.addressForm.value.state,
+        landmark: this.addressForm.value.landmark,
+      }
+      this._usersService.putUpdateUser(this._currentUser!)
+    } else throw new Error('Usuário ou Pessoa esta null')
   }
 
 }

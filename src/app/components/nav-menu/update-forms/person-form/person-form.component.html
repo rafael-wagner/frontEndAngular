@@ -1,5 +1,5 @@
 <div class="form-container">
-    <form [formGroup]="personForn" >
+    <form [formGroup]="personForn" (ngSubmit)="personFormOnSubmitEvent()">
         <div class="form-container__item divider_line">
             <span>
                 <label for="name">Nome Completo:</label>

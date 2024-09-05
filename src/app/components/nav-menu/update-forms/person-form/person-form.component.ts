@@ -12,6 +12,7 @@ import { IUser } from '../../../../interfaces/IUser.interface';
 })
 export class PersonFormComponent implements OnInit{
 
+
   personForn: FormGroup = new FormGroup({
     personName: new FormControl('',Validators.required),
     cpf: new FormControl('',Validators.required),
@@ -26,7 +27,7 @@ export class PersonFormComponent implements OnInit{
     this._usersService.getCurrentUserInfo().subscribe( user => 
     {
       this._currentUser = user;
-      if(user.person !== null){
+      if(user.person !== null) {
         this.personForn.patchValue({
           personName: [user.person?.name],
           cpf: [user.person?.cpf],
@@ -34,7 +35,18 @@ export class PersonFormComponent implements OnInit{
         })
       }
     })
-      
+  }
+
+  personFormOnSubmitEvent() {
+    if(this._currentUser !== null){
+      this._currentUser!.person = {
+        name : this.personForn.value.personName
+        ,phone : this.personForn.value.phone
+        ,cpf : this.personForn.value.cpf
+      }
+      this._usersService.putUpdateUser(this._currentUser!).subscribe()
+    } else throw new Error('Usuário esta null')
+    
   }
 
 }

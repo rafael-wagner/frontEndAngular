@@ -33,7 +33,7 @@ private readonly _authService = new AuthService()
   }
 
   putUpdateUser(user: IUser):Observable<any> {
-    return this._http.post<any>(this._usersUrl,user,{headers: this.getAuthHeaders()})
+    return this._http.put<any>(this._usersUrl,user,{headers: this.getAuthHeaders()})
   }
 
   deleteUser(user: IUser):Observable<any> {

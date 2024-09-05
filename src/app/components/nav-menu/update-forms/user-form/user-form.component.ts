@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../../../interfaces/IUser.interface';
 import { RequestService } from '../../../../services/request.service';
 
@@ -39,25 +39,24 @@ export class UserFormComponent implements OnInit{
     
   }
 
-
   private readonly _requestService = inject(RequestService)
 
   userFormOnSubmitEvent() {
     this.verifyIsPasswordValid()
 
     const user : IUser = {
-      name:this.userForm.value.username
+      name: this.userForm.value.userName
       ,password: this.userForm.value.password
       ,email: this.userForm.value.email
     }
 
-    this._requestService.putUpdateUser(user)
+    this._requestService.putUpdateUser(user).subscribe()
 
   }
 
   verifyIsPasswordValid(){
       if(this.userForm.value.password !== this.userForm.value.password2){
-        throw new Error('Não implementado');
+        throw new Error('Validação de password não implementado');
       }
   }
 

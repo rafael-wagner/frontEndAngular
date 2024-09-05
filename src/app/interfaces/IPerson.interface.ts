@@ -5,9 +5,7 @@ export interface IPerson {
 
     name: string | null;
     phone: string | null;
-    cpf: string | null;
-
+    cpf?: string | null;
     address?: IAddress | null;
-    user?: IUser | null;
 
 }

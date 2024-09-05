@@ -1,69 +1,176 @@
-<div class="">
-    <div class="form-container">
-        <form [formGroup]="userSearchForm" class="items_inline" (ngSubmit)="searchFormOnSubmitEvent()">
-            <div class="form-container__item">
-                <span class="search_margin">
-                    <label for="user-name">Usuario:</label>
-                    <input class="login_card__input_line" id="user-name" formControlName="username" type="text" 
-                    placeholder="Nome de Usuário" >
-                </span>
-            </div>
-            <div class="form-container__item">
-                <span class="search_margin">
-                    <label for="user-email">Email:</label>
-                    <input class="login_card__input_line" id="user-email" formControlName="email" type="text" 
-                    placeholder="Email de Usuário" >
-                </span>
-            </div>
-            <button class="form_button" type="submit">
-                Buscar
-            </button>
-        </form>
-    </div>
-    <div class="user_list_container">
-
-        <table class="users_table" cellspacing="0" cellpadding="0">
-            <tr class="border_bot">
-                <th>Usuário</th>
-                <th class="border_sides">Email</th>
-                <th>Nome</th>
-            </tr>
-
-            @for (user of users; track user.name; let isFirst = $first; let isLast = $last) {
-                <tr class="users_table__line"
-                [ngClass]="{
-                    'bot_round': isLast 
-                    , 'border_bot' : !isLast 
-                    , 'users_table__line--selected': user === selectedUser
-                }"
-                (click)="selectUser(user)">
-                    <td>
-                        {{user.name}}
-                    </td>
-                    <td class="border_sides">
-                        {{user.email}}
-                    </td>
-                    <td>
-                        {{user.person?.name}}
-                    </td>
+<div class="search_container">
+    <div class="">
+        <div class="form-container">
+            <form [formGroup]="userSearchForm" class="items_inline" (ngSubmit)="searchFormOnSubmitEvent()">
+                <div class="form-container__item">
+                    <span class="search_margin">
+                        <label for="user-name">Usuario:</label>
+                        <input class="login_card__input_line" id="user-name" formControlName="username" type="text" 
+                        placeholder="Nome de Usuário" >
+                    </span>
+                </div>
+                <div class="form-container__item">
+                    <span class="search_margin">
+                        <label for="user-email">Email:</label>
+                        <input class="login_card__input_line" id="user-email" formControlName="email" type="text" 
+                        placeholder="Email de Usuário" >
+                    </span>
+                </div>
+                <button class="form_button" type="submit">
+                    Buscar
+                </button>
+            </form>
+        </div>
+        <div class="user_list_container">
+    
+            <table class="users_table" cellspacing="0" cellpadding="0">
+                <tr class="border_bot">
+                    <th>Usuário</th>
+                    <th class="border_sides">Email</th>
+                    <th>Nome</th>
                 </tr>
-            }
-
-        </table>
-
-        <div class="user_info">
-            <h1>Info</h1>
-            <div>
-                <h2>Nome: </h2>
-                <h3>{{selectedUser?.name}}</h3>
-            </div>
-            <div>
-                <h2>Email: </h2>
-                <h3>{{selectedUser?.email}}</h3>
-            </div>
-            <button (click)="deleteUser(selectedUser)">DELETAR</button>
+    
+                @for (user of users; track user.name; let isFirst = $first; let isLast = $last) {
+                    <tr class="users_table__line"
+                    [ngClass]="{
+                        'bot_round': isLast 
+                        , 'border_bot' : !isLast 
+                        , 'users_table__line--selected': user === selectedUser
+                    }"
+                    (click)="selectUser(user)">
+                        <td>
+                            {{user.name}}
+                        </td>
+                        <td class="border_sides">
+                            {{user.email}}
+                        </td>
+                        <td>
+                            {{user.person?.name}}
+                        </td>
+                    </tr>
+                }
+    
+            </table>      
         </div>
     </div>
+ 
+
+        <div class="form-container">
+            <form [formGroup]="userForm" (ngSubmit)="userFormOnSubmitEvent()">
+                <div class="form-container__item divider_line">
+                    <span>
+                        <label for="user-name">Nome de Usuario:</label>
+                        <input type="text" id="user-name" formControlName="userName">
+                    </span>
+                    <ul class="form_warnings">
+                        @if(userForm.controls['userName'].touched){
+                            @if(userForm.controls['userName'].hasError('required')){
+                                <li>CAMPO OBRIGATÓRIO</li>
+                            }
+                            @if(userForm.controls['userName'].hasError('minlength')){
+                                <li>NOME MUITO CURTO</li>
+                            }
+                            @if(userForm.controls['userName'].hasError('maxlength')){
+                                <li>NOME MUITO LONGO</li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="form-container__item divider_line">
+                    <span>
+                        <label for="user-password">Senha:</label>
+                        <input [type]="passwordVisibility" id="user-password" formControlName="password">
+                    </span>
+                    <span class="password_buttom">
+                        <button type="button" (click)="togglePasswordVisibility()">
+                            <img src="../../../assets/icons/visibility_16dp_E8EAED_FILL0_wght400_GRAD0_opsz20.svg" alt="">
+                        </button>
+                    </span>
+                    <ul class="form_warnings">
+                        @if(userForm.controls['password'].touched){
+                            @if(userForm.controls['password'].hasError('required')){
+                                <li>CAMPO OBRIGATÓRIO</li>
+                            }
+                            @if(userForm.controls['password'].hasError('minlength')){
+                                <li>SENHA MUITO CURTA</li>
+                            }
+                            @if(userForm.controls['password'].hasError('maxlength')){
+                                <li>SENHA MUITO LONGA</li>
+                            }
+                        }
+                    </ul>        
+                </div>
+                <div class="form-container__item divider_line"> 
+                    <span>
+                        <label for="user-password-repeat">Repetir Senha:</label>
+                        <input [type]="password2Visibility" id="user-password-repeat" formControlName="password2">
+                    </span>
+                    <span class="password_buttom">
+                        <button type="button" (click)="togglePassword2Visibility()">
+                            <img src="../../../assets/icons/visibility_16dp_E8EAED_FILL0_wght400_GRAD0_opsz20.svg" alt="">
+                        </button>
+                    </span>        
+                    <ul class="form_warnings">
+                        @if(userForm.controls['password2'].hasError('required')
+                        && userForm.controls['password2'].touched){
+                            <li>CAMPO OBRIGATÓRIO</li>
+                        }
+                    </ul>   
+                </div>
+                <div class="form-container__item divider_line">
+                    <span>
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" formControlName="email">
+                    </span>
+                    <ul class="form_warnings">
+                        @if(userForm.controls['email'].hasError('required')
+                        && userForm.controls['email'].touched){
+                            <li>CAMPO OBRIGATÓRIO</li>
+                        }
+                    </ul>  
+                </div>
+        
+                <div class="form-container__item divider_line">
+                    <span>
+                        <label for="name">Nome Completo:</label>
+                        <input type="text" id="name" formControlName="personName">
+                    </span>
+                    <ul class="form_warnings">
+                        @if(userForm.controls['personName'].hasError('required')
+                        && userForm.controls['personName'].touched){
+                            <li>CAMPO OBRIGATÓRIO</li>
+                        }
+                    </ul>  
+                </div>
+                <div class="form-container__item divider_line">
+                    <span>
+                        <label for="cpf">CPF:</label>
+                        <input id="cpf" formControlName="cpf" >
+                    </span>
+                    <ul class="form_warnings">
+                        @if(userForm.controls['cpf'].hasError('required')
+                        && userForm.controls['cpf'].touched){
+                            <li>CAMPO OBRIGATÓRIO</li>
+                        }
+                    </ul>  
+                </div>
+                <div class="form-container__item divider_line">
+                    <span>
+                        <label for="phone">Telefone:</label>
+                        <input type="text" id="phone" formControlName="phone">
+                    </span>
+                    <ul class="form_warnings">
+                        @if(userForm.controls['phone'].hasError('required')
+                        && userForm.controls['phone'].touched){
+                            <li>CAMPO OBRIGATÓRIO</li>
+                        }
+                    </ul> 
+                </div> 
+                <button type="submit" class="form_button">Concluir</button>
+                <button type="button" (click)="deleteUser(selectedUser)" class="form_button">Excluir</button>
+            </form>
+        </div>
+
 </div>
 
 
