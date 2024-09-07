@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { IUser } from '../../interfaces/IUser.interface';
 import { RequestService } from '../../services/request.service';
 import { take } from 'rxjs';
@@ -22,6 +22,8 @@ export class UserListComponent {
     username: new FormControl(''),
     email: new FormControl('')
   });
+
+  selectedUser: IUser | null = null
 
   @Input() users : IUser[] = [
     {
@@ -53,30 +55,30 @@ export class UserListComponent {
     }
   ]
 
-  selectedUser: IUser | null = null
+  selectUser($user : IUser | null){
 
-  selectUser($user : IUser){
-    this.selectedUser = $user;
+    if($user !== null){
+      this.selectedUser = $user;
+      // this.userForm.patchValue({
+      //   userName: [this.selectedUser!.name],
+      //   password: [''],
+      //   password2: [''],
+      //   email: [this.selectedUser!.email],
+  
+      //   personName: [this.selectedUser!.person?.name],
+      //   cpf: [this.selectedUser!.person?.cpf],
+      //   phone: [this.selectedUser!.person?.phone],
+      // })
+      // this._submitUserToService = this._functionPut
+    }
 
-    this.userForm.patchValue({
-      userName: [$user.name],
-      password: [''],
-      password2: [''],
-      email: [$user.email],
-
-      personName: [$user.person?.name],
-      cpf: [$user.person?.cpf],
-      phone: [$user.person?.phone],
-    })
-
-    this._submitUserToService = this._functionPut
   }
 
-  deleteUser(user : IUser | null){
-    if(user !== null){
-      this._usersService.deleteUser(user).subscribe();
+  deleteUser($user : IUser | null){
+    if($user !== null){
+      this._usersService.deleteUser($user).subscribe();
       this.selectedUser = null;
-      this.users = this.users.filter(u => u.name !== user.name)
+      this.users = this.users.filter(u => u.name !== $user.name)
     }
   }
 
@@ -89,72 +91,5 @@ export class UserListComponent {
   }
 
 
-// CONTEUDO DE FORMS
-  private readonly _requestService = inject(RequestService)
-
-  userForm: FormGroup = new FormGroup({
-      userName: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(100)]),
-      password: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(100)]),
-      password2: new FormControl('',Validators.required),
-      email: new FormControl('',Validators.required),
-
-      personName: new FormControl('',Validators.required),
-      cpf: new FormControl('',Validators.required),
-      phone: new FormControl('',Validators.required),
-
-    });
-
-  userFormOnSubmitEvent() {
-    this.verifyIsPasswordValid()
-
-    const person : IPerson = {
-      cpf: this.userForm.value.cpf
-      ,name: this.userForm.value.personName
-      ,phone: this.userForm.value.phone
-
-    }
-
-    const user : IUser = {
-      name:this.userForm.value.username
-      ,password: this.userForm.value.password
-      ,email:this.userForm.value.email
-
-      ,person:person
-    }
-
-    this._submitUserToService(user)
-    this._submitUserToService = this._functionPost
-  }
-
-  private readonly _functionPost =  (user : IUser) => {
-    this._requestService.postNewUser(user)
-    .subscribe()
-  }
-  private readonly _functionPut =  (user : IUser) => {
-    this._requestService.postNewUser(user)
-    .subscribe()
-  }
-  private _submitUserToService = this._functionPost
-
-  verifyIsPasswordValid(){
-      const isNameValid : boolean = this.userForm.value.username !== '' && this.userForm.value.username !== null
-      const isPasswordValid: boolean = this.userForm.value.password !== this.userForm.value.password2 && this.userForm.value.password !== ''
-
-      const validName : boolean = this.userForm.value.username
-      console.log(validName)
-
-      if(!isNameValid && !isPasswordValid){
-        throw new Error('Não implementado: nome ou senha invalidos');
-      }
-  }
-
-  passwordVisibility: "password" | "text" = "password";
-  password2Visibility: "password" | "text" = "password";
-  togglePasswordVisibility(){
-    this.passwordVisibility = (this.passwordVisibility === "password")? "text" : "password"; 
-  }
-  togglePassword2Visibility(){
-    this.password2Visibility = (this.password2Visibility === "password")? "text" : "password";
-  }
 
 }

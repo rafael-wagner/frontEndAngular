@@ -110,5 +110,9 @@
             </ul> 
         </div> 
         <button type="submit" class="form_button">Concluir</button>
+        @if(this.selectedUser !== null){
+            <button type="button" class="form_button" (click)="deleteSelectedUser(selectedUser)">Deletar</button>
+            <button type="button" class="form_button" (click)="clearForm()">Limpar</button>
+        }
     </form>
 </div>
