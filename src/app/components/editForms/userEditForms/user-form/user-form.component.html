@@ -1,5 +1,5 @@
-<div class="form-container">
-    <form [formGroup]="userForm" (ngSubmit)="userFormOnSubmitEvent()">
+<ng-container>
+    <form [formGroup]="userForm">
         <div class="form-container__item divider_line">
             <span>
                 <label for="user-name">Nome de Usuario:</label>
@@ -25,14 +25,14 @@
                 <input type="text" id="email" formControlName="email">
             </span>
             <ul class="form_warnings">
-                @if(userForm.controls['userName'].touched){
-                    @if(userForm.controls['userName'].hasError('required')){
+                @if(userForm.controls['email'].touched){
+                    @if(userForm.controls['email'].hasError('required')){
                         <li>CAMPO OBRIGATÓRIO</li>
                     }
-                    @if(userForm.controls['userName'].hasError('minlength')){
+                    @if(userForm.controls['email'].hasError('minlength')){
                         <li>NOME MUITO CURTO</li>
                     }
-                    @if(userForm.controls['userName'].hasError('maxlength')){
+                    @if(userForm.controls['email'].hasError('maxlength')){
                         <li>NOME MUITO LONGO</li>
                     }
                 }
@@ -86,6 +86,5 @@
                 }
             </ul>   
         </div>
-        <button type="submit" class="form_button">Alterar</button>
     </form>
-</div>
+</ng-container>

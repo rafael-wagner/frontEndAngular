@@ -54,7 +54,13 @@
         </div>
     </div>
 
-    <app-new-user-form [selectedUser]='this.selectedUser' (deleteUserEvent)="deleteUser($event)"></app-new-user-form>
+    <div class="form-container">
+        <form [formGroup]="editForm">
+            <app-user-form [form]="editForm" [user]="selectedUser"></app-user-form>
+            <app-person-form [form]="editForm" [person]="selectedPerson"></app-person-form>
+        </form>
+
+    </div>
 
 </div>
 

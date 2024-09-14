@@ -1,0 +1,26 @@
+
+<div class="tabs_container items_inline">
+    @for(item of menuItems;track $index){
+        <div class="button">
+            <a  class="button__link"  (click)="selectIndex($index)" [ngClass]="{'button__link--selected': $index === selectedIndex}" >
+                <span>
+                    <i class="fa fa-fw fa-home"></i>
+                    {{item}}
+                </span>
+            </a>
+        </div>
+    }
+</div>
+
+<div class="form-container" >
+  <form [formGroup]="editForm" (ngSubmit)="editFormOnSubmitEvent()">
+        <app-user-form [form]="editForm" [hidden]="selectedIndex !== 0"></app-user-form>
+
+        <app-person-form [form]="editForm" [hidden]="selectedIndex !== 1"></app-person-form>
+
+        <app-address-form [form]="editForm" [hidden]="selectedIndex !== 2"></app-address-form>
+
+    <button type="submit" class="form_button animate_btn">Alterar</button>
+  </form>
+</div>
+

@@ -5,12 +5,14 @@ import { take } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NewUserFormComponent } from "../new-user-form/new-user-form.component";
+import { UserFormComponent } from "../editForms/userEditForms/user-form/user-form.component";
+import { PersonFormComponent } from "../editForms/userEditForms/person-form/person-form.component";
 import { IPerson } from '../../interfaces/IPerson.interface';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, NewUserFormComponent],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, NewUserFormComponent, UserFormComponent, PersonFormComponent],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })
@@ -23,7 +25,17 @@ export class UserListComponent {
     email: new FormControl('')
   });
 
+  editForm : FormGroup = new FormGroup({})
+
   selectedUser: IUser | null = null
+
+  get selectedPerson (): IPerson | null {
+
+    if(this.selectedUser !== null && this.selectedUser.person !== undefined){
+      return this.selectedUser.person
+    }
+    return null
+  }
 
   @Input() users : IUser[] = [
     {
@@ -59,17 +71,6 @@ export class UserListComponent {
 
     if($user !== null){
       this.selectedUser = $user;
-      // this.userForm.patchValue({
-      //   userName: [this.selectedUser!.name],
-      //   password: [''],
-      //   password2: [''],
-      //   email: [this.selectedUser!.email],
-  
-      //   personName: [this.selectedUser!.person?.name],
-      //   cpf: [this.selectedUser!.person?.cpf],
-      //   phone: [this.selectedUser!.person?.phone],
-      // })
-      // this._submitUserToService = this._functionPut
     }
 
   }
@@ -81,7 +82,6 @@ export class UserListComponent {
       this.users = this.users.filter(u => u.name !== $user.name)
     }
   }
-
 
   searchFormOnSubmitEvent() {
     this._usersService

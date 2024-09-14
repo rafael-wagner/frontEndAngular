@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import './app/styles/input-forms';
+@import './app/styles/button-styles';
+
 
 .center_content{
     display: flex;
@@ -16,11 +18,6 @@
 
 a{
     text-decoration: none;
-}
-
-.btn:active { 
-    transform: translateY(2px); 
-    /* Moving button 4px to y-axis */ 
 }
 
 .form_button {

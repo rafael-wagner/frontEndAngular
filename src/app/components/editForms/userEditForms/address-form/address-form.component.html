@@ -1,5 +1,5 @@
-<div class="form-container">
-    <form [formGroup]="addressForm" (ngSubmit)="addressFormOnSubmitEvent()">
+<ng-container>
+    <form [formGroup]="addressForm" >
         <div class="form-container__item divider_line">
             <span>
                 <label for="cep">CEP:</label>
@@ -72,6 +72,5 @@
                 }
             </ul>
         </div>
-        <button type="submit" class="form_button">Alterar</button>
     </form>
-</div>
+</ng-container>
